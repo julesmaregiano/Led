@@ -19,6 +19,7 @@ gem 'uglifier'
 gem 'json'
 gem "simple_calendar", "~> 2.0"
 gem "faker"
+gem 'questionnaire_engine', '0.1', :require=>"survey"
 
 group :development, :test do
   gem 'pry-byebug'

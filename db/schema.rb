@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170915102318) do
+ActiveRecord::Schema.define(version: 20170918084249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,86 @@ ActiveRecord::Schema.define(version: 20170915102318) do
     t.string "lng"
     t.string "lat"
     t.index ["zone_id"], name: "index_points_on_zone_id"
+  end
+
+  create_table "survey_answers", force: :cascade do |t|
+    t.integer "attempt_id"
+    t.integer "question_id"
+    t.integer "option_id"
+    t.boolean "correct"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "option_text"
+    t.integer "option_number"
+    t.integer "predefined_value_id"
+  end
+
+  create_table "survey_attempts", force: :cascade do |t|
+    t.string "participant_type"
+    t.bigint "participant_id"
+    t.integer "survey_id"
+    t.boolean "winner"
+    t.integer "score"
+    t.index ["participant_type", "participant_id"], name: "index_survey_attempts_on_participant_type_and_participant_id"
+  end
+
+  create_table "survey_options", force: :cascade do |t|
+    t.integer "question_id"
+    t.integer "weight", default: 0
+    t.string "text"
+    t.boolean "correct"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "locale_text"
+    t.integer "options_type_id"
+    t.string "head_number"
+  end
+
+  create_table "survey_predefined_values", force: :cascade do |t|
+    t.string "head_number"
+    t.string "name"
+    t.string "locale_name"
+    t.integer "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "survey_questions", force: :cascade do |t|
+    t.string "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "section_id"
+    t.string "head_number"
+    t.text "description"
+    t.string "locale_text"
+    t.string "locale_head_number"
+    t.text "locale_description"
+    t.integer "questions_type_id"
+    t.boolean "mandatory", default: false
+  end
+
+  create_table "survey_sections", force: :cascade do |t|
+    t.string "head_number"
+    t.string "name"
+    t.text "description"
+    t.integer "survey_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "locale_head_number"
+    t.string "locale_name"
+    t.text "locale_description"
+  end
+
+  create_table "survey_surveys", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "attempts_number", default: 0
+    t.boolean "finished", default: false
+    t.boolean "active", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "locale_name"
+    t.text "locale_description"
   end
 
   create_table "towns", force: :cascade do |t|

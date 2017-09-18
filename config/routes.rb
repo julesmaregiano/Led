@@ -14,4 +14,9 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   resources :bookings, only: [:new, :create, :show, :destroy, :index, :update]
 
+  namespace :contests do
+    resources :attempts
+    resources :surveys
+  end
+
 end
