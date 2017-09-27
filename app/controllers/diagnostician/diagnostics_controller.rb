@@ -28,6 +28,7 @@ class Diagnostician::DiagnosticsController < ApplicationController
     authorize @diagnostic
     @sections = Section.all
     @questions = Question.where
+    @answer = Answer.new
   end
 
   def update
@@ -37,5 +38,9 @@ class Diagnostician::DiagnosticsController < ApplicationController
 
   def params_user
     @user = current_user
+  end
+
+  def answer_params
+    params.require(:answer).permit(:question_id, :diagnostic_id, :option_choice)
   end
 end
