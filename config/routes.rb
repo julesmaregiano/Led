@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resources :users, only: [:show, :index]
   end
 
+  mount Attachinary::Engine => "/attachinary"
+
   devise_for :users
   root to: 'pages#home'
   get '/eligibility', to: 'pages#eligibility'
