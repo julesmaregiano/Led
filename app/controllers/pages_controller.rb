@@ -1,7 +1,6 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :eligibility]
   before_action :params_user, only: [:home, :valuation]
-  require "open-uri"
 
   def home
   end
@@ -33,10 +32,10 @@ class PagesController < ApplicationController
       end
 
       bdv_url = "https://bdvapis.appspot.com/#{ENV['BDV_API_KEY']}/valuation/v1.0.0/purchase?#{url_queue.join[1..-1]}"
-      # bdv_url = "https://jsonplaceholder.typicode.com/posts"
+      encoded_url = URI::encode(bdv_url)
+      url_result = RestClient.get(encoded_url, {origin: 'http://localhost:3000/'})
 
-      url_serialized = open(bdv_url, "Referer" => "http://diag-herokuapp.com", "Origin" => "http://diag-herokuapp.com").read
-      result = JSON.parse(url_serialized)
+      result = JSON.parse(url_result)
     else
       flash[:notice] = t('valuation.form_rescue')
     end
