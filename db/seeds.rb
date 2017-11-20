@@ -54,59 +54,6 @@ end
 
 puts "Booking créé: #{Booking.count}"
 
-serialized_file = File.read(Rails.root.join('lib', 'seeds', 'floirac_test.json'))
-
-floirac = JSON.parse(serialized_file)
-floirac_zones = floirac["features"]
-
-floirac_zones.each do |zone|
-  z = zone["properties"]
-  name = z["NOM_COM"]
-  zipcode = z["INSEE_COM"]
-  unless Town.find_by_zipcode(zipcode)
-    Town.create!(name: name, zipcode: zipcode)
-    puts "Ville créée : #{Town.last.name}"
-  end
-
-  town_id = Town.find_by_zipcode(zipcode).id
-
-  case z["codezone"]
-    when "Zone rouge hachure bleue liser rouge" then color = "#D0021B"
-    when "Zone rouge hachure bleue" then color = "#F5A623"
-    when "Zone jaune" then color = "#F8E71C"
-    else color = "#FFF9AC"
-  end
-
-  id_zone = z["ID_ZONE"]
-
-  g = zone["geometry"]["coordinates"]
-
-  if zone["geometry"]["type"] == "Polygon"
-    Zone.create!(town_id: town_id, color: color, id_zone: id_zone)
-    puts "Zone Polygone créée avec l'id: #{Zone.last.id_zone}"
-
-      g[0].each do |point|
-        lng = point[0]
-        lat = point[1]
-        Point.create!(zone_id: Zone.last.id, lat: lat, lng: lng)
-      end
-  elsif zone["geometry"]["type"] == "MultiPolygon"
-    g.each_with_index do |polygon, index|
-      id_zone = z["ID_ZONE"] + "-#{index+1}"
-      Zone.create!(town_id: town_id, color: color, id_zone: id_zone)
-      puts "Zone Multipolygone créée avec l'id: #{Zone.last.id_zone}"
-
-      g[index].each do |poly|
-        poly.each do |point|
-        lng = point[0]
-        lat = point[1]
-        Point.create!(zone_id: Zone.last.id, lat: lat, lng: lng)
-      end
-    end
-    end
-  end
-  puts "Point créé: #{Point.count}"
-end
 
 sections = ["inhabitant", "risk_awarness", "works_against_inondation", "place", "history",
 "accessibility", "history_references", "housing", "structure", "shelter", "furniture", "exit", "airflow", "sanitation", "electricity", "warming"]
