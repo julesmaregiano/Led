@@ -9,9 +9,6 @@ Booking.destroy_all
 Housing.destroy_all
 User.destroy_all
 Diagnostic.destroy_all
-Point.destroy_all
-Zone.destroy_all
-Town.destroy_all
 
 
 
