@@ -1,14 +1,14 @@
 fr:
   landing:
-    title_html: "Inondations: <br /> Êtes-vous éligible à la prise en charge du diagnotic de prévention?*"
-    subtitle: "* Le diagnostic de prévention contre les inondations est gratuit si vous êtes situé en zone identifiée inondable"
-    placeholder: "Entrez l’adresse du logement à diagnostiquer"
+    title_html: "Détectez vos réseaux enterrés <br /> Prenez rendez-vous en ligne."
+    subtitle: ""
+    placeholder: "Entrez l’adresse où faire la détection"
     button_text: "Rechercher"
   page_text1:
     signal: "Informations"
-    title: "Lorem ipsom dolor information"
-    column1: "Sit amet consectetuer adipiscing elit sed diam nonummy. Zzril delenit augue duis dolore te feugait nulla facilisi nam liber. Esse molestie consequat vel illum dolore eu feugiat nulla. Placerat facer possim assum typi non habent claritatem.Sit amet consectetuer adipiscing elit sed diam nonummy. Zzril delenit augue duis dolore te feugait nulla facilisi nam liber. Esse molestie consequat vel illum dolore eu feugiat nulla. Placerat facer possim assum typi non habent claritatem."
-    column2: "Sit amet consectetuer adipiscing elit sed diam nonummy. Zzril delenit augue duis dolore te feugait nulla facilisi nam liber. Esse molestie consequat vel illum dolore eu feugiat nulla. Placerat facer possim assum typi non habent claritatem.Sit amet consectetuer adipiscing elit sed diam nonummy. Zzril delenit augue duis dolore te feugait nulla facilisi nam liber. Esse molestie consequat vel illum dolore eu feugiat nulla. Placerat facer possim assum typi non habent claritatem."
+    title: "Sécurisez et accélérez vos travaux"
+    column1: "La détection des réseaux enterrés permet de savoir en phase pré-chantier ce qui se trouve sur votre parcelle. Une fois marqués au sol, vous pouvez évoluer plus rapidement dans vos travaux et en toute sécurité."
+    column2: "Obligatoire depuis 2012, la détection des réseaux enterrés permet d'éviter les accidents et de travailler en sécurité. Nos techniciens sont experts dans les détections de réseaux enterrés avec des centaines d'opérations réalisées chaque année."
     image: "http://res.cloudinary.com/doodlid/image/upload/v1507544547/Save%20images/diago/diago_bg02.jpg"
   page_card2:
     title: "Lorem ipsom dolor information"
@@ -61,7 +61,7 @@ fr:
     confirmation: "Votre rendez-vous est confirmé, un diagnosticien vous appelera sous peu."
   metas:
     titles:
-      home: "Diag-o | Prévention du risque inondation"
+      home: "L'ED | Détection de câbles et réseaux enterrés."
       eligilibity: "Rapport d'éligibilité"
       diagnostics: "Vos diagnostics"
     description:

@@ -17,11 +17,6 @@ class PagesController < ApplicationController
       @address_geocoded = Geocoder.coordinates(params[:query][:address])
     end
 
-    @town = Town.first
-    @zoneslist = @town.zones.map do |zone|
-      zonepoints = zone.points.map { |point| {'lat' => point.lat.to_f, 'lng' => point.lng.to_f} }
-      [ zonepoints, zone.color ]
-    end
   end
 
   def valuation

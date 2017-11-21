@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'pages#home'
   get '/eligibility', to: 'pages#eligibility'
-  get '/valuation', to: 'pages#valuation'
   get '/disponibility', to: 'inscriptions#disponibility'
   get '/checkpoint', to: 'inscriptions#checkpoint'
   get '/confirmation', to: 'inscriptions#confirmation'
