@@ -8,12 +8,13 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
   has_many :bookings
   has_many :user_housings
   has_many :housings, through: :user_housings
   has_many :diagnostics, through: :bookings
 
-  enum role: [:particulier, :diagnostician, :city, :partner, :admin]
+  enum role: [:particulier, :professionnel, :diagnostician, :admin]
   after_initialize :init
 
   def init
