@@ -1,40 +1,4 @@
 <!-- Bout de code de Jonathan pour transférer des infos du controller à la vue -->
 <% content_for :title_tag do t('metas.titles.eligilibity') end %>
 
-<div  id="zone1"
-      data-color="<%= @color %>"
-      data-area="<%= @area_orange %>"></div>
 
-<%= content_tag 'div', class: "data-for-js", data: {zoneslist: @zoneslist, address: @address || "Bordeaux", geocoded: @address_geocoded || [48.856614,  2.3522219]} do %>
-<% end %>
-
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-6">
-      <div class="map-wrapper">
-        <input id="pac-input" class="controls" type="text" placeholder="Entrer une adresse">
-        <div id="map">
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6">
-      <div class="report">
-          <h4 class="margin-bottom-medium underline">Réservez votre Détection</h4>
-          <h6 id="info">Précisez votre adresse à l'aide du champ de recherche et de la liste sur la carte.</h6>
-          <h6>Adresse de l'habitation concernée:</h6>
-          <h4 id="address">--</h4>
-          <h6>Situation:</h6>
-          <h4 id="zone">--</h4>
-          <h6>Éligibilité:</h6>
-          <h4 class="margin-bottom-medium" id="conclusion">--</h4>
-          <h4 class="margin-bottom-medium" id="calltoaction">--</h4>
-          <%= simple_form_for :query, url: '/disponibility', method: :get do |f| %>
-            <%= f.input :address, as: :hidden, value: "default"%>
-            <%= f.input :color, as: :hidden, value: "default"%>
-            <%= f.button :submit, value: "Prendre un rendez-vous", id: "btn-rendez-vous", class: "hidden btn btn-anis flexbox" %>
-          <% end %>
-      </div>
-    </div>
-  </div>
-</div>

@@ -3,22 +3,56 @@
 <h3 class="text-center "><%= t('inscription.disponibility1') %></h3>
 <p class="text-center margin-bottom-medium"><%= t('inscription.disponibility2') %></p>
 
-<%= calendar start_date_param: :my_date, number_of_days: 25, partial: 'simple_calendar/disponibility_calendar' do |date| %>
-  <div class="date-day"><%= date.day %></div>
-  <div class="cell-content">
-    <div class="btn-container">
-      <% ["8","14"].each do |hour| %>
-        <% if date_in_futur(date) %>
-          <% unless @dates.include? date_with_hour(date, hour) %>
-            <%= simple_form_for :query, url: "/checkpoint", method: :get do |f| %>
-              <%= f.input_field :date, as: :hidden, value: date %>
-              <%= f.input_field :hour, as: :hidden, value: hour %>
-              <%= f.button :submit, value: (hour == "8" ? "8h-12h" : "14h-18h"), id: "btn-date", class: "btn-calendar btn-calendar-tobook" %>
-            <% end %>
-          <% else %>
-          <% end %>
+<div  id="zone1"
+      data-color="<%= @color %>"
+      data-area="<%= @area_orange %>"></div>
+
+<%= content_tag 'div', class: "data-for-js", data: {zoneslist: @zoneslist, address: @address || "Bordeaux", geocoded: @address_geocoded || [48.856614,  2.3522219]} do %>
+<% end %>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <div class="map-wrapper">
+        <input id="pac-input" class="controls" type="text" placeholder="Entrer une adresse">
+        <div id="map">
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <div class="report">
+          <h4 class="margin-bottom-medium underline">Réservez votre Détection</h4>
+          <h6 id="info">Précisez votre adresse à l'aide du champ de recherche et de la liste sur la carte.</h6>
+          <h6>Adresse de l'habitation concernée:</h6>
+          <h4 id="address">--</h4>
+        <%= calendar start_date_param: :my_date, number_of_days: 25, partial: 'simple_calendar/disponibility_calendar' do |date| %>
+          <div class="date-day"><%= date.day %></div>
+          <div class="cell-content">
+            <div class="btn-container">
+              <% ["8","14"].each do |hour| %>
+                <% if date_in_futur(date) %>
+                  <% unless @dates.include? date_with_hour(date, hour) %>
+                    <%= simple_form_for :query, url: "/checkpoint", method: :get do |f| %>
+                      <%= f.input_field :date, as: :hidden, value: date %>
+                      <%= f.input_field :hour, as: :hidden, value: hour %>
+                      <%= f.button :submit, value: (hour == "8" ? "8h-12h" : "14h-18h"), id: "btn-date", class: "btn-calendar btn-calendar-tobook" %>
+                    <% end %>
+                  <% else %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
         <% end %>
-      <% end %>
+          <%= simple_form_for :query, url: '/disponibility', method: :get do |f| %>
+            <%= f.input :address, as: :hidden, value: "default"%>
+            <%= f.input :color, as: :hidden, value: "default"%>
+            <%= f.button :submit, value: "Prendre un rendez-vous", id: "btn-rendez-vous", class: "hidden btn btn-anis flexbox" %>
+          <% end %>
+
+      </div>
+
     </div>
   </div>
-<% end %>
+</div>

@@ -2,7 +2,7 @@ fr:
   landing:
     title_html: "Détectez vos réseaux enterrés <br /> Prenez rendez-vous en ligne."
     subtitle: ""
-    placeholder: "Entrez l’adresse de la parcelle à détecter"
+    placeholder: "Entrez l’adresse où faire la détection"
     button_text: "Rechercher"
   page_text1:
     signal: "Informations"
