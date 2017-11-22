@@ -23,31 +23,22 @@
           <h4 id="address"><strong><%= params[:query][:address] %></strong></h4>
           <h4 class="margin-bottom-medium underline">Choisissez le(s) jour(s) d'intervention:</h4>
 
-<!--         <%= calendar start_date_param: :my_date, number_of_days: 25, partial: 'simple_calendar/disponibility_calendar' do |date| %>
+
+
+        <%= @days.each do |date| %>
           <div class="date-day"><%= date.day %></div>
           <div class="cell-content">
             <div class="btn-container">
-              <% ["8","14"].each do |hour| %>
-                <% if date_in_futur(date) %>
-                  <% unless @dates.include? date_with_hour(date, hour) %>
-                    <%= simple_form_for :query, url: "/checkpoint", method: :get do |f| %>
-                      <%= f.input_field :date, as: :hidden, value: date %>
-                      <%= f.input_field :hour, as: :hidden, value: hour %>
-                      <%= f.button :submit, value: (hour == "8" ? "8h-12h" : "14h-18h"), id: "btn-date", class: "btn-calendar btn-calendar-tobook" %>
-                    <% end %>
-                  <% else %>
-                  <% end %>
-                <% end %>
-              <% end %>
+                <% hours = [8, 14] %>
+                <div class="btn-calendar btn-calendar-tobook">
+                  <%= Availability.where(date: Time.new(date.year, date.month, date.day, hours[0], 0, 0, 0)).first %>
+                </div>
+                <div class="btn-calendar btn-calendar-tobook">
+                  <%= Availability.where(date: Time.new(date.year, date.month, date.day, hours[1], 0, 0, 0)).first %>
+                </div>
             </div>
           </div>
-        <% end %> -->
-
-          <%= simple_form_for :query, url: '/disponibility', method: :get do |f| %>
-            <%= f.input :address, as: :hidden, value: "default"%>
-            <%= f.input :color, as: :hidden, value: "default"%>
-            <%= f.button :submit, value: "Prendre un rendez-vous", id: "btn-rendez-vous", class: "hidden btn btn-anis flexbox" %>
-          <% end %>
+        <% end %>
 
       </div>
 

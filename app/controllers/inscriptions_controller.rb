@@ -7,8 +7,10 @@ class InscriptionsController < ApplicationController
     @bookings = Booking.where(diagnostician: @user)
     @dates = @bookings.map{ |booking| booking.set_at}
     session[:address] = nil
+    session[:availabilities] = nil
     session[:date] = nil
     session[:hour] = nil
+    @days = Date.today.upto(Date.today + 30)
 
     unless params[:query].nil?
       @address = params[:query][:address]
