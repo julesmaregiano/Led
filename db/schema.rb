@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171002144523) do
+ActiveRecord::Schema.define(version: 20171121163820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 20171002144523) do
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
+  create_table "availabilities", force: :cascade do |t|
+    t.datetime "date"
+    t.bigint "user_id"
+    t.bigint "booking_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_availabilities_on_booking_id"
+    t.index ["user_id"], name: "index_availabilities_on_user_id"
+  end
+
   create_table "bookings", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "housing_id"
@@ -39,6 +49,8 @@ ActiveRecord::Schema.define(version: 20171002144523) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "diagnostic_id"
+    t.bigint "availabilities_id"
+    t.index ["availabilities_id"], name: "index_bookings_on_availabilities_id"
     t.index ["diagnostic_id"], name: "index_bookings_on_diagnostic_id"
     t.index ["housing_id"], name: "index_bookings_on_housing_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
@@ -142,6 +154,8 @@ ActiveRecord::Schema.define(version: 20171002144523) do
     t.string "last_name"
     t.string "phone"
     t.integer "role"
+    t.bigint "availabilities_id"
+    t.index ["availabilities_id"], name: "index_users_on_availabilities_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -160,6 +174,9 @@ ActiveRecord::Schema.define(version: 20171002144523) do
   add_foreign_key "answers", "diagnostics"
   add_foreign_key "answers", "option_choices"
   add_foreign_key "answers", "questions"
+  add_foreign_key "availabilities", "bookings"
+  add_foreign_key "availabilities", "users"
+  add_foreign_key "bookings", "availabilities", column: "availabilities_id"
   add_foreign_key "bookings", "diagnostics"
   add_foreign_key "bookings", "housings"
   add_foreign_key "bookings", "users"
@@ -170,5 +187,6 @@ ActiveRecord::Schema.define(version: 20171002144523) do
   add_foreign_key "questions", "units"
   add_foreign_key "user_housings", "housings"
   add_foreign_key "user_housings", "users"
+  add_foreign_key "users", "availabilities", column: "availabilities_id"
   add_foreign_key "zones", "towns"
 end

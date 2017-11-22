@@ -3,12 +3,9 @@
 <h3 class="text-center "><%= t('inscription.disponibility1') %></h3>
 <p class="text-center margin-bottom-medium"><%= t('inscription.disponibility2') %></p>
 
-<div  id="zone1"
-      data-color="<%= @color %>"
-      data-area="<%= @area_orange %>"></div>
-
-<%= content_tag 'div', class: "data-for-js", data: {zoneslist: @zoneslist, address: @address || "Bordeaux", geocoded: @address_geocoded || [48.856614,  2.3522219]} do %>
+<%= content_tag 'div', class: "data-for-js", data: {address: @address || "Bordeaux", geocoded: @address_geocoded || [48.856614,  2.3522219]} do %>
 <% end %>
+
 
 
 <div class="container-fluid">
@@ -22,10 +19,9 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-6">
       <div class="report">
-          <h4 class="margin-bottom-medium underline">Réservez votre Détection</h4>
-          <h6 id="info">Précisez votre adresse à l'aide du champ de recherche et de la liste sur la carte.</h6>
-          <h6>Adresse de l'habitation concernée:</h6>
-          <h4 id="address">--</h4>
+          <h4 class="margin-bottom-medium underline">Adresse de l'habitation concernée</h4>
+          <h4 id="address"><strong><%= params[:query][:address] %></strong></h4>
+          <h4 class="margin-bottom-medium underline">Choisissez le(s) jour(s) d'intervention:</h4>
         <%= calendar start_date_param: :my_date, number_of_days: 25, partial: 'simple_calendar/disponibility_calendar' do |date| %>
           <div class="date-day"><%= date.day %></div>
           <div class="cell-content">
@@ -45,6 +41,7 @@
             </div>
           </div>
         <% end %>
+
           <%= simple_form_for :query, url: '/disponibility', method: :get do |f| %>
             <%= f.input :address, as: :hidden, value: "default"%>
             <%= f.input :color, as: :hidden, value: "default"%>

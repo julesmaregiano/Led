@@ -6,9 +6,14 @@ class InscriptionsController < ApplicationController
     @user = User.find_by_first_name("Jo")
     @bookings = Booking.where(diagnostician: @user)
     @dates = @bookings.map{ |booking| booking.set_at}
+    session[:address] = nil
+    session[:date] = nil
+    session[:hour] = nil
 
-    session[:address] = params[:query][:address]
-    session[:color] = params[:query][:color]
+    unless params[:query].nil?
+      @address = params[:query][:address]
+      @address_geocoded = Geocoder.coordinates(params[:query][:address])
+    end
     session[:page] = 1
   end
 

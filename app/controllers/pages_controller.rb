@@ -1,40 +1,9 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:home, :eligibility]
-  before_action :params_user, only: [:home, :valuation]
-  require "open-uri"
+  skip_before_action :authenticate_user!, only: [:home, :disponibility]
+  before_action :params_user, only: [:home]
+
 
   def home
-  end
-
-  def eligibility
-    session[:address] = nil
-    session[:color] = nil
-    session[:date] = nil
-    session[:hour] = nil
-
-    unless params[:query].nil?
-      @address = params[:query][:address]
-      @address_geocoded = Geocoder.coordinates(params[:query][:address])
-    end
-
-  end
-
-  def valuation
-    if minimum_for_valuation
-      url_queue = []
-
-      params[:query].each do |value|
-        url_queue << "&#{value}=#{params[:query][value]}"
-      end
-
-      bdv_url = "https://bdvapis.appspot.com/#{ENV['BDV_API_KEY']}/valuation/v1.0.0/purchase?#{url_queue.join[1..-1]}"
-      # bdv_url = "https://jsonplaceholder.typicode.com/posts"
-
-      url_serialized = open(bdv_url, "Referer" => "http://diag-herokuapp.com", "Origin" => "http://diag-herokuapp.com").read
-      result = JSON.parse(url_serialized)
-    else
-      flash[:notice] = t('valuation.form_rescue')
-    end
   end
 
   private
@@ -43,11 +12,4 @@ class PagesController < ApplicationController
     @user = current_user
   end
 
-  def minimum_for_valuation
-    if params[:query]
-      params[:query][:geoloc] && params[:query][:surface]
-    else
-      false
-    end
-  end
 end
