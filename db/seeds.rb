@@ -22,6 +22,19 @@ jules = User.create!(email: "jules@yahoo.fr", password: "123456", first_name: "J
 max = User.create!(email: "max@yahoo.fr", password: "123456", first_name: "Max", last_name: "Boue", phone:"06 11 22 33 44", role:0)
 sami = User.create!(email: "sam@yahoo.fr", password: "123456", first_name: "Sam", last_name: "Chalalala", phone:"06 11 22 33 44", role:0)
 
+next_10 = [1, 2, 3 ,4 ,5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+
+next_10.each do |numero|
+  User.all.where(role: 1).each do |user|
+
+    d = numero.business_days.from_now
+    hours = [8, 14]
+    Availability.create(user_id: user.id, date: Time.new(d.year, d.month, d.day, hours[0], 0, 0, 0) )
+    Availability.create(user_id: user.id, date: Time.new(d.year, d.month, d.day, hours[1], 0, 0, 0) )
+  end
+end
+
+
 #Housings
 Housing.create!(address:"Diagnostician house", created_at:"01-01-2017", updated_at:"01-01-2017")
 UserHousing.create!(user: diagnostician, housing: Housing.last, user_state: 1 )

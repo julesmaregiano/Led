@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :user_housings
   has_many :housings, through: :user_housings
   has_many :diagnostics, through: :bookings
+  has_many :availabilities
 
   enum role: [:particulier, :professionnel, :diagnostician, :admin]
   after_initialize :init

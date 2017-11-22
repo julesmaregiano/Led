@@ -19,7 +19,7 @@ gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'json'
-gem "simple_calendar", "~> 2.0"
+gem 'business_time'
 gem "faker"
 gem "nokogiri"
 

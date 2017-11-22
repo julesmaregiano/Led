@@ -5,6 +5,7 @@ class Booking < ApplicationRecord
   validates :set_at, presence: :true
   validates :user_id, presence: :true
   belongs_to :user
+  has_many :availabilities
 
   scope :for_me, -> (user) { where(diagnostician: user) }
   scope :to_come, -> { where("set_at > ?", DateTime.now) }

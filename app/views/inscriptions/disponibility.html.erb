@@ -22,7 +22,8 @@
           <h4 class="margin-bottom-medium underline">Adresse de l'habitation concernée</h4>
           <h4 id="address"><strong><%= params[:query][:address] %></strong></h4>
           <h4 class="margin-bottom-medium underline">Choisissez le(s) jour(s) d'intervention:</h4>
-        <%= calendar start_date_param: :my_date, number_of_days: 25, partial: 'simple_calendar/disponibility_calendar' do |date| %>
+
+<!--         <%= calendar start_date_param: :my_date, number_of_days: 25, partial: 'simple_calendar/disponibility_calendar' do |date| %>
           <div class="date-day"><%= date.day %></div>
           <div class="cell-content">
             <div class="btn-container">
@@ -40,7 +41,7 @@
               <% end %>
             </div>
           </div>
-        <% end %>
+        <% end %> -->
 
           <%= simple_form_for :query, url: '/disponibility', method: :get do |f| %>
             <%= f.input :address, as: :hidden, value: "default"%>
